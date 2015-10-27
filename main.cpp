@@ -211,11 +211,15 @@ void FilesList::sortByDate()
        current = ptrAtBegin;
        while(current->next != NULL)
        {
+
            temp1 = current->getDate();
            temp2 = current->next->getDate();
 
-           day1 = temp1[0] + temp1[1];
-           month1 = temp1[3] + temp1[4];
+           day1 = temp1[0];
+           day1 += temp1[1];
+           month1 = temp1[3];
+           month1 += temp1[4];
+           year1 = "";
            for (int i = 6; i<10; i++)
            {
                year1 +=temp1[i];
@@ -227,8 +231,11 @@ void FilesList::sortByDate()
            minute1 = temp1[3];
            minute1 += temp1[4];
 
-           day2 = temp2[0] + temp2[1];
-           month2 = temp2[3] + temp2[4];
+           day2 = temp2[0];
+           day2 += temp2[1];
+           month2 = temp2[3];
+           month2 += temp2[4];
+           year2 = "";
            for (int i = 6; i<10; i++)
            {
                year2 +=temp2[i];
@@ -238,7 +245,8 @@ void FilesList::sortByDate()
            hour2+=temp2[1];
            minute2 = temp2[3];
            minute2 +=temp2[4];
-
+           cout << year1 << " " << month1 << " " << day1 << " " << hour1 << " " << minute1 << endl;
+           cin.ignore().get();
 
            if (year1 > year2 || month1 > month2 || day1 > day2 || hour1 > hour2 || minute1 > minute2 )
            {
@@ -313,6 +321,7 @@ bool FilesList::checkForCopy(string fullName, int sec)
 {
     string suffix, name;
     File *current;
+    bool flag = false;
     current = ptrAtBegin;
     for (int i = fullName.size() - 1; i>= 0; i--)
     {
@@ -325,10 +334,12 @@ bool FilesList::checkForCopy(string fullName, int sec)
            for (int j = 0; j <i;j++)
            {
                name += fullName[j];
+               flag = true;
            }
            break;
         }
     }
+    if(!flag) {name = fullName;}
 
     while (current != NULL)
     {
@@ -351,7 +362,7 @@ bool FilesList::checkForCopy(string fullName, int sec)
 
 void FilesList::getInfo(string fullName)
 {
-    bool flag = false;
+    bool flag = false, flag2 = false;
     string suffix, name1;
     for (int i = fullName.size() - 1; i>= 0; i--)
     {
@@ -364,10 +375,12 @@ void FilesList::getInfo(string fullName)
            for (int j = 0; j <i;j++)
            {
                name1 += fullName[j];
+               flag2 = true;
            }
            break;
         }
     }
+    if (!flag) {name1 = fullName;}
     File *current;
     current = ptrAtBegin;
 
@@ -424,6 +437,11 @@ int main()
 
     while (command)
     {
+        fullName = "";
+        name = "";
+        suffix = "";
+        flag = false;
+
         if (list.size == 0)
         {
             switch(command)

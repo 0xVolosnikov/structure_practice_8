@@ -245,8 +245,6 @@ void FilesList::sortByDate()
            hour2+=temp2[1];
            minute2 = temp2[3];
            minute2 +=temp2[4];
-           cout << year1 << " " << month1 << " " << day1 << " " << hour1 << " " << minute1 << endl;
-           cin.ignore().get();
 
            if (year1 > year2 || month1 > month2 || day1 > day2 || hour1 > hour2 || minute1 > minute2 )
            {
@@ -614,12 +612,14 @@ int main()
         }
 }
 
-cout << "Нажмите любую клавишу чтобы продолжить" << endl;
-        cin.ignore().get();
+
 
 #ifdef __linux
+        cout << "Нажмите любую клавишу чтобы продолжить" << endl;
+        cin.ignore().get();
         system("clear");
 #else
+        system("pause");
         system("cls");
 #endif
 
